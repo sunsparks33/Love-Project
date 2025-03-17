@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Heart Belongs to You ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff4d6d;
+            --secondary-color: #ff8fa3;
+            --text-color: #4a4a4a;
+        }
+
+        body {
+            height: 100vh;
+            background: #000;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .love-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            transform-style: preserve-3d;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.3);
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .card:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+        }
+
+        .heart-title {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+            perspective: 1000px;
+        }
+
+        .photo-frame {
+            position: relative;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .photo-frame:hover {
+            transform: scale(1.05) rotateY(10deg);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .photo-frame:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 8px;
+            background: rgba(255, 77, 109, 0.9);
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .special-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-button:hover {
+            transform: scale(1.05);
+            background: var(--secondary-color);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .love-story {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: rgba(255, 77, 109, 0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .love-story.visible {
+            max-height: 200px;
+            padding: 1rem;
+        }
+
+        .special-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 4;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(30);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="floating-hearts"></div>
+    <div class="special-effects"></div>
+
+    <div class="love-container">
+        <div class="card">
+            <h1 class="heart-title">❤️</h1>
+            <div class="message">
+                Dear [Your Crush's Name],<br><br>
+                Every moment I spend thinking of you fills my heart with joy.
+                Your smile lights up my world brighter than all the stars in the sky.
+            </div>
+
+            <div class="photo-gallery">
+                <div class="photo-frame">
+                    <img src="2.jpg" alt="Romantic Couple">
+                    <div class="photo-caption">Our Future Together ❤️</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="1.jpg" alt="Beach Sunset">
+                    <div class="photo-caption">Our Perfect Date 🌅</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="3.jpg" alt="Red Roses">
+                    <div class="photo-caption">For You 🌹</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="4.jpg" alt="Coffee Hearts">
+                    <div class="photo-caption">Coffee Date? ☕</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="5.jpg" alt="Night Lights">
+                    <div class="photo-caption">Adventure Together 🎡</div>
+                </div>
+                <div class="photo-frame">
+                    <img src="6.jpg" alt="Cute Gift">
+                    <div class="photo-caption">Hugs & Love 🧸</div>
+                </div>
+            </div>
+
+            <button class="special-button" id="revealBtn">Open My Heart ❤️</button>
+
+            <div class="love-story" id="loveStory">
+                I've been wanting to tell you something special...<br>
+                Every time I see you, my heart skips a beat.<br>
+                Your presence makes my day complete.<br>
+                Would you like to go on a date with me?
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create starry background
+        function createStars() {
+            const stars = document.querySelector('.stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+                stars.appendChild(star);
+            }
+        }
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
+            document.querySelector('.floating-hearts').appendChild(heart);
+
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        // Create firework effect
+        function createFirework(x, y) {
+            const colors = ['#ff4d6d', '#ff8fa3', '#ff758f'];
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = x + 'px';
+            firework.style.top = y + 'px';
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            document.querySelector('.special-effects').appendChild(firework);
+
+            setTimeout(() => firework.remove(), 1000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            setInterval(createHeart, 300);
+
+            const revealBtn = document.getElementById('revealBtn');
+            const loveStory = document.getElementById('loveStory');
+
+            revealBtn.addEventListener('click', (e) => {
+                loveStory.classList.toggle('visible');
+                
+                // Create firework effect
+                const rect = revealBtn.getBoundingClientRect();
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => {
+                        createFirework(
+                            rect.left + Math.random() * rect.width,
+                            rect.top + Math.random() * rect.height
+                        );
+                    }, i * 100);
+                }
+
+                if (loveStory.classList.contains('visible')) {
+                    revealBtn.textContent = 'Close My Heart 💝';
+                } else {
+                    revealBtn.textContent = 'Open My Heart ❤️';
+                }
+            });
+
+            // Interactive effects on mouse movement
+            document.addEventListener('mousemove', (e) => {
+                if (Math.random() < 0.1) {
+                    createHeart();
+                }
+
+                const card = document.querySelector('.card');
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
